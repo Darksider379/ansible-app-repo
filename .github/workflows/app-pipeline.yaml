@@ -1,0 +1,17 @@
+name: Ansible app pipeline
+
+on: [push]
+
+jobs:
+  pipeline-dev:
+    if: ( github.event_name == 'push' && github.event.ref == 'refs/heads/main' )
+    uses: Darksider379/ansible-playbooks/.github/workflows/ansible_pipeline.yaml@main
+    secrets: inherit
+    with:
+      DB_NAME: "postgres"
+      DB_INSTANCE_NAME: "cloudsql-instance-name"
+      DB_HOST: "cloudsql-instance-ip"
+      DB_USER: "cloudsql-user"
+      GCP_PROJECT: "cloudsql-gcp-project"
+      SCRIPT_PATH: "DDL/"
+      DB_INSTANCE_LOCATION: "cloudsql-gcp-region"
